@@ -3,304 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>coffee</title>
+    <title>Мой индивидуальный сайт</title>
     <style>
         :root {
-            --bg: #fdf6ec;
-            --text: #333;
-            --heading: #4b2e1e;
-            --heading2: #6b3e26;
-            --accent: #a9744f;
-            --block-bg: #f4e6d4;
-            --block-text: #5a4632;
+            --bg: #fdfaf5;
+            --text: #2b2b2b;
+            --accent: #7a5c3e;
+            --accent-light: #c9a06c;
+            --card: #f5ede1;
+            --note: #faf0dc;
+            --border: #d8c4a8;
         }
 
         body.dark {
-            --bg: #1e1a17;
-            --text: #e8ddd0;
-            --heading: #f0c9a0;
-            --heading2: #e0b483;
-            --accent: #c8935e;
-            --block-bg: #2c2521;
-            --block-text: #d4c3b0;
+            --bg: #1e1a16;
+            --text: #e8e0d4;
+            --accent: #c9a06c;
+            --accent-light: #a8825a;
+            --card: #2a241e;
+            --note: #332b22;
+            --border: #4a3f33;
+        }
+
+        * {
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
         }
 
         body {
-            font-family: Georgia, 'Times New Roman', serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
             color: var(--text);
             background-color: var(--bg);
-            transition: background-color 0.4s, color 0.4s;
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px double var(--accent);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+            position: relative;
         }
 
         h1 {
-            font-size: 2em;
-            color: var(--heading);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 10px;
-            transition: color 0.4s, border-color 0.4s;
+            color: var(--accent);
+            font-size: 2.4em;
+            letter-spacing: 1px;
         }
 
         h2 {
-            font-size: 1.5em;
-            color: var(--heading2);
-            margin-top: 30px;
-            transition: color 0.4s;
+            color: var(--accent);
+            border-left: 6px solid var(--accent-light);
+            padding-left: 12px;
+            margin-top: 45px;
+            font-size: 1.6em;
         }
 
-        blockquote {
-            border-left: 4px solid var(--accent);
-            margin: 20px 0;
-            padding: 15px 20px;
-            color: var(--block-text);
+        p {
+            text-align: justify;
+            margin-bottom: 18px;
+            text-indent: 25px;
+        }
+
+        .intro {
             font-style: italic;
-            background-color: var(--block-bg);
-            border-radius: 5px;
-            transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+            color: var(--accent);
+            background-color: var(--card);
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-indent: 0;
         }
 
-        p { text-align: justify; }
-
-        ul {
-            background-color: var(--block-bg);
-            padding: 15px 40px;
-            border-radius: 5px;
-            transition: background-color 0.4s;
-        }
-
-        li { margin-bottom: 8px; }
-
-        /* === Интерактив === */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .clock {
+        .note {
+            background-color: var(--note);
+            border: 1px dashed var(--accent-light);
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-indent: 0;
             font-size: 0.95em;
-            color: var(--heading2);
-            font-family: 'Courier New', monospace;
         }
 
-        button {
-            font-family: inherit;
-            font-size: 0.95em;
-            padding: 8px 16px;
-            border: 2px solid var(--accent);
-            background: transparent;
-            color: var(--heading2);
-            border-radius: 20px;
+        /* Кнопка переключения темы */
+        .theme-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--card);
+            border: 2px solid var(--accent-light);
+            color: var(--accent);
+            font-size: 1.4em;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
             cursor: pointer;
-            transition: all 0.25s ease;
-        }
-
-        button:hover {
-            background: var(--accent);
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .coffee-counter {
-            text-align: center;
-            margin: 25px 0;
-            padding: 20px;
-            background: var(--block-bg);
-            border-radius: 10px;
-            transition: background-color 0.4s;
-        }
-
-        .coffee-counter .count {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: var(--heading);
-            display: block;
-            margin: 10px 0;
-            transition: transform 0.2s;
-        }
-
-        .coffee-counter .count.pop {
-            transform: scale(1.3);
-        }
-
-        .fact-box {
-            background: var(--block-bg);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        /* Кнопка факта */
+        .fact-btn {
+            display: block;
+            margin: 25px auto;
+            padding: 14px 32px;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 30px;
+            font-size: 1.05em;
+            font-family: inherit;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .fact-btn:hover {
+            background: var(--accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+        }
+
+        .fact-btn:active {
+            transform: translateY(0);
+        }
+
+        .fact-box {
+            background: var(--card);
+            border-left: 6px solid var(--accent-light);
+            padding: 20px 25px;
+            border-radius: 8px;
+            margin: 20px 0;
             font-style: italic;
-            color: var(--block-text);
-            transition: background-color 0.4s, color 0.4s;
+            min-height: 60px;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .fact-box.show {
             opacity: 1;
+            transform: translateY(0);
         }
 
-        .fact-box.fade {
+        /* Аккордеон */
+        .accordion-item {
+            border: 1px solid var(--border);
 
 
-pacity: 0;
-            transition: opacity 0.3s;
+border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
         }
 
-        /* Анимация появления разделов */
-        h2, p, ul, blockquote {
-            animation: fadeIn 0.6s ease both;
+        .accordion-header {
+            background: var(--card);
+            padding: 15px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
+        .accordion-header:hover {
+            background: var(--note);
+        }
+
+        .accordion-header .arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .accordion-item.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 20px;
+            background: var(--bg);
+        }
+
+        .accordion-item.open .accordion-content {
+            max-height: 300px;
+            padding: 15px 20px;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--accent);
+        }
+
+        /* Кнопка вверх */
+        .up-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .up-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .up-btn:hover {
+            transform: translateY(-5px);
+            background: var(--accent-light);
         }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        <span class="clock" id="clock">--:--:--</span>
-        <button id="themeBtn">🌙 Ночная тема</button>
-    </div>
+    <header>
+        <button class="theme-btn" id="themeBtn" title="Переключить тему">🌙</button>
+        <h1>Чай — напиток с историей</h1>
+        <p class="intro">
+            Индивидуальный текст-заполнитель на тему чая, созданный специально для лабораторной работы №1.
+            Он не является копией стандартного «Lorem Ipsum» и написан вручную.
+        </p>
+    </header>
 
-    <h1>Кофе</h1>
+    <main>
+        <section>
+            <h2>Рождение чая</h2>
+            <p>
+                История чая насчитывает тысячи лет. По легенде, китайский император Шэнь Нун отдыхал
+                под деревом, когда несколько листьев упали в его чашу с горячей водой. Напиток оказался
+                настолько ароматным и бодрящим, что с тех пор чай стал неотъемлемой частью культуры
+                многих народов. Сначала его использовали как лекарство, затем — как ритуальный напиток,
+                и лишь спустя века он превратился в повседневное удовольствие для миллионов людей.
+            </p>
+            <p>
+                Из Китая чай постепенно распространился по всей Азии. В Японии родилась целая философия
+                чайной церемонии, где каждое движение имеет значение, а в Индии и на Цейлоне появились
+                плантации, подарившие миру крепкие сорта с насыщенным вкусом. Так простой лист стал
+                символом спокойствия, общения и гостеприимства.
+            </p>
+        </section>
 
-    <blockquote>
-        <p>«Кофе — это не просто напиток, это ритуал, который сопровождает нас каждое утро.»</p>
-        <p>«Хороший кофе согревает не только тело, но и душу.»</p>
-    </blockquote>
+        <section>
+            <h2>Интересный факт</h2>
+            <p>Нажмите на кнопку, чтобы узнать случайный факт о чае:</p>
+            <button class="fact-btn" id="factBtn">Показать факт о чае 🍵</button>
+            <div class="fact-box" id="factBox"></div>
+        </section>
 
-    <h2>Что такое кофе?</h2>
-    <p>
-        Кофе — это напиток, приготовляемый из обжаренных и молотых зёрен кофейного дерева. 
-        Родиной кофе считается Эфиопия, где, по легенде, пастух Калди заметил, что его козы 
-        становятся бодрыми, поев ягод с незнакомого куста. С тех пор кофе прошёл долгий путь 
-        и стал одним из самых популярных напитков в мире.
-    </p>
+        <section>
+            <h2>Разнообразие сортов</h2>
+            <p>Нажмите на название сорта, чтобы узнать подробнее:</p>
 
-    <h2>Основные виды кофе</h2>
-    <ul>
-        <li><strong>Эспрессо</strong> — концентрированный напиток, основа большинства видов кофе.</li>
-        <li><strong>Американо</strong> — эспрессо, разбавленный горячей водой.</li>
-        <li><strong>Капучино</strong> — эспрессо с молоком и плотной молочной пенкой.</li>
-        <li><strong>Латте</strong> — мягкий напиток с большим количеством молока.</li>
-        <li><strong>Раф</strong> — кофе со сливками и ванильным сахаром.</li>
-        <li><strong>Мокко</strong> — кофе с добавлением шоколада.</li>
-    </ul>
+            <div class="accordion-item">
+                <div
 
-    <h2>Как правильно заваривать кофе?</h2>
-    <p>
-        Для приготовления вкусного кофе важно соблюдать несколько простых правил: использовать 
-        свежеобжаренные зёрна, правильно их смолоть и не допускать кипения воды. Идеальная 
-        температура воды — около 90–96 °C. Также важно соблюдать пропорции: обычно берут 
-        1–2 чайные ложки молотого кофе на 200 мл воды.
-    </p>
 
-    <!-- Счётчик чашек -->
-    <h2>Сколько чашек вы уже выпили сегодня?</h2>
-    <div class="coffee-counter">
-        <span class="count" id="count">0</span>
-        <button id="drinkBtn">☕ Выпить чашку</button>
-        <button id="resetBtn">Сбросить</button>
-    </div>
+class="accordion-header">
+                    <span>🖤 Чёрный чай</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>
+                        Полностью ферментированный чай с насыщенным вкусом и тёмным настоем.
+                        Отлично бодрит, согревает и хорошо сочетается с молоком. Самые известные
+                        сорта — ассам, цейлон, дарджилинг.
+                    </p>
+                </div>
+            </div>
 
-    <!-- Случайный факт -->
-    <h2>Случайный факт о кофе</h2>
-    <div class="fact-box" id="factBox">Нажмите кнопку, чтобы узнать интересный факт ☕</div>
-    <div style="text-align:center;">
-        <button id="factBtn">🎲 Показать факт</button>
-    </div>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>💚 Зелёный чай</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>
+                        Неферментированный чай, сохраняющий максимум полезных веществ. Имеет
+                        свежий травянистый вкус и светлый настой. Популярные сорта — сенча,
+                        лунцзин, ганпаудер.
+                    </p>
+                </div>
+            </div>
 
-    <h2>Польза и вред кофе</h2>
-    <p>
-        Умеренное употребление кофе (1–3 чашки в день) может улучшить концентрацию внимания, 
-        повысить работоспособность и даже снизить риск некоторых заболеваний. Однако избыток 
-        кофеина способен вызвать бессонницу, повышенное давление и раздражительность. 
-        Поэтому важно знать свою норму.
-    </p>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>🤍 Белый чай</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>
+                        Самый деликатный вид чая, изготавливается из молодых почек и листьев.
+                        Обладает мягким сладковатым вкусом и лёгким ароматом. Особенно ценится
+                        сорт «серебряные иглы».
+                    </p>
+                </div>
+            </div>
 
-    <h2>Интересные факты о кофе</h2>
-    <ul>
-        <li>Кофе — второй по популярности напиток в мире после воды.</li>
-        <li>В Финляндии пьют больше всего кофе на душу населения.</li>
-        <li>Существует более 100 видов кофейных деревьев, но массово используют только два: арабику и робусту.</li>
-        <li>Самый дорогой кофе в мире — «Копи Лювак».</li>
-    </ul>
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>💛 Улун (оолонг)</span>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p>
+                        Полуферментированный чай, занимающий промежуточное положение между
+                        зелёным и чёрным. Имеет сложный вкус с цветочными и медовыми нотами.
+                        Классический пример — чай «те гуань инь».
+                    </p>
+                </div>
+            </div>
 
-    <hr>
-    <p style="text-align: center; color: var(--accent); font-size: 0.9em;">
-        Страница создана в рамках лабораторной работы №1
-    </p>
+            <p class="note">
+                Этот блок с аккордеоном — интерактивный элемент. Он создан для демонстрации
+                оформления и не несёт конкретного информационного смысла, как и положено
+                тексту-«рыбе».
+            </p>
+        </section>
+
+        <section>
+            <h2>Чайная церемония</h2>
+            <p>
+                Заваривание чая — это целое искусство. Важно не только выбрать хороший сорт, но и
+                правильно нагреть воду, соблюсти время настаивания и подобрать посуду. В Китае и Японии
+                этому учат годами, передавая знания из поколения в поколение. Но даже простой чай,
+                заваренный дома в любимой кружке, способен подарить минуты покоя и тепла.
+            </p>
+            <p>
+                Чай объединяет людей. За чашкой чая ведутся беседы, решаются споры, заключаются союзы.
+                Он сопровождает нас в радости и в печали, согревая в холод и освежая в жару. Недаром
+                говорят: «Чай — это не просто напиток, это настроение».
+            </p>
+        </section>
+
+        <section>
+            <h2>Заключение</h2>
+            <p>
+                Так заканчивается этот небольшой рассказ о чае — индивидуальный текст-заполнитель,
+                созданный для выполнения лабораторной работы. Он демонстрирует, как обычные слова
+                могут наполнить страницу жизнью, не отвлекая от главного — правильной структуры
+                HTML-документа и аккуратного оформления.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026, Лабораторная работа №1. Индивидуальный текст на тему чая.</p>
+    </footer>
+
+    <button class="up-btn" id="upBtn" title="
+
+
+Наверх">↑</button>
 
     <script>
-        // === 1. Часы ===
-        function updateClock() {
-            const now = new Date();
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            const s = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock').textContent = `🕐 ${h}:${m}:${s}`;
-        }
-        updateClock();
-        setInterval(updateClock, 1000);
-
-        // === 2. Смена темы ===
+        // 1. Переключение тёмной/светлой темы
         const themeBtn = document.getElementById('themeBtn');
-        themeBtn.addEventListener
+        const body = document.body;
 
+        // Проверяем сохранённую тему
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark');
+            themeBtn.textContent = '☀️';
+        }
 
-('click', () => {
-            document.body.classList.toggle('dark');
-            const isDark = document.body.classList.contains('dark');
-            themeBtn.textContent = isDark ? '☀️ Дневная тема' : '🌙 Ночная тема';
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            const isDark = body.classList.contains('dark');
+            themeBtn.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
 
-        // === 3. Счётчик чашек ===
-        let count = 0;
-        const countEl = document.getElementById('count');
-        document.getElementById('drinkBtn').addEventListener('click', () => {
-            count++;
-            countEl.textContent = count;
-            countEl.classList.add('pop');
-            setTimeout(() => countEl.classList.remove('pop'), 200);
-        });
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            count = 0;
-            countEl.textContent = 0;
-        });
-
-        // === 4. Случайный факт ===
+        // 2. Случайный факт о чае
         const facts = [
-            'Кофе был открыт благодаря козам — пастух Калди заметил их бодрость после поедания ягод.',
-            'В Турции в XV веке за отказ подать кофе муж мог подать на развод.',
-            'Эспрессо содержит меньше кофеина на чашку, чем фильтр-кофе.',
-            'Бетховен был большим любителем кофе и всегда заваривал ровно 60 зёрен.',
-            'Кофеин начинает действовать через 15–20 минут после употребления.',
-            'В Японии есть кофейни, где кофе наливают роботы.',
-            'Самая большая чашка кофе в мире была объёмом более 3 000 литров.'
+            'Чай — второй по популярности напиток в мире после воды.',
+            'В Китае чай пьют уже более 4000 лет.',
+            'Существует более 1500 сортов чая.',
+            'Чёрный чай в Китае называют «красным» из-за цвета настоя.',
+            'Один куст чая может давать урожай более 100 лет.',
+            'Самое большое количество чая на душу населения пьют в Турции.',
+            'Чайный пакетик изобрёл американский торговец Томас Салливан в 1904 году.',
+            'В Индии и Непале растёт чайное дерево, а не куст — до 20 метров высотой.',
+            'Пуэр — единственный чай, который со временем становится дороже.',
+            'Слово «чай» произошло от китайского «ча» (茶).'
         ];
+
+        const factBtn = document.getElementById('factBtn');
         const factBox = document.getElementById('factBox');
-        document.getElementById('factBtn').addEventListener('click', () => {
-            factBox.classList.add('fade');
+
+        factBtn.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * facts.length);
+            factBox.textContent = '🍵 ' + facts[randomIndex];
+            factBox.classList.add('show');
+            factBox.style.opacity = '0';
+            factBox.style.transform = 'translateY(-10px)';
             setTimeout(() => {
-                const random = facts[Math.floor(Math.random() * facts.length)];
-                factBox.textContent = random;
-                factBox.classList.remove('fade');
-            }, 300);
+                factBox.style.opacity = '1';
+                factBox.style.transform = 'translateY(0)';
+            }, 50);
+        });
+
+        // 3. Аккордеон для сортов чая
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                // Закрываем остальные
+                document.querySelectorAll('.accordion-item').forEach(other => {
+                    if (other !== item) other.classList.remove('open');
+                });
+                // Переключаем текущий
+                item.classList.toggle('open');
+            });
+        });
+
+        // 4. Кнопка "Наверх"
+        const upBtn = document.getElementById('upBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                upBtn.classList.add('visible');
+            } else {
+                upBtn.classList.remove('visible');
+            }
+        });
+
+        upBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 
 </body>
-</html> o
+</html>
